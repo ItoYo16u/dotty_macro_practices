@@ -17,11 +17,11 @@ trait ToJson[A] {
 object ToJson {
 
   inline given ToJson[Int] {
-      override def toJson(a:Int): String = s"json of $a"
+      override def toJson(a:Int): String = s"json int of $a"
   }
 
   inline given ToJson[String] {
-      override def toJson(a:String): String = s""""json of $a""""
+      override def toJson(a:String): String = s""""json string of $a""""
   }
 
   def extractLabelsAsString[T : Type](using q: Quotes):List[Expr[String]] = Type.of[T] match {
@@ -61,11 +61,11 @@ object ToJson {
         val elementResolver = summonAll[elementTypes]
 
         val callback: (Expr[A])=> Expr[String] = (a)=> {
-        val values = elementResolver.zipWithIndex.foldLeft(Expr(Nil) :Expr[List[String]]){ case (acc,(_,index))=>
+        val values = elementResolver.zipWithIndex.foldLeft(Expr(Nil) :Expr[List[String]]){ case (acc,(resolver,index))=>
           val label = '{$a.asInstanceOf[Product].productElementName(${Expr(index)})}
           val value = '{$a.asInstanceOf[Product].productElement(${Expr(index)})}
           // 以下でvalue.toJson か ToJson[].toJson(value)  を呼びたい
-          val pair = '{""""""" + ${label}+ """"""" + ":" + ${value} }
+          val pair = '{""""""" + ${label}+ """"""" + ":" + $resolver.asInstanceOf[ToJson[Any]].toJson($value) }
           '{  ${pair} :: $acc }
         }
         '{"{" +  $values.mkString(",") + "}"}
