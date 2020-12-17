@@ -1,3 +1,16 @@
+# dotty (macro) playground
+
+## about
+Repo to try dotty's macro.
+
+/src/main/scala
+
+- json: [WIP] add toJson extension to case classes
+  - for example: ``Person("id","john",1,",Box("1")).toJson`` 
+    should returns 
+    {"id":"id","name":"jhon","age":1,"box": {"id": "1"}}
+- macro:
+  - debugSingle: show expr of argument and value
 ## sbt project compiled with Dotty
 
 ### Usage
