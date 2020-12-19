@@ -1,11 +1,24 @@
-# dotty (macro) playground
+# dotty playground
 
 ## about
-Repo to try dotty's macro.
+Playground repository to try new features that dotty offers such as macro.
+
+## memo
+### Macro
+- Currently, Dotty macro only supports so called ``def macro``. Dotty macro has yet to support Macro Annotation.
+- Dotty macro has concept of ``quotes`` and ``splicing`` 
+to programmatically manipulate AST in compile time.
+
+- ``quotes``(= ``'``) extracts AST as ``Expr`` class which is pattern-matchable
+and ``splicing``=(=``$``) evaluates ``Expr``.
+
+- Macros with Quoted expression require to correctly use ``level``. 
+  If ``level`` is invalid, it is impossible to run macros.
+- Some functionalities in Scala 2.x's macro such as TypeTag is updated in ``scala.quoted`` package.
 
 /src/main/scala
 
-- json: [WIP] add toJson extension to case classes
+- json: add toJson extension to case classes
   - for example: ``Person("id","john",1,",Box("1")).toJson`` 
     should returns 
     {"id":"id","name":"jhon","age":1,"box": {"id": "1"}}

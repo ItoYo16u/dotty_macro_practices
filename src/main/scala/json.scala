@@ -17,11 +17,11 @@ trait ToJson[A] {
 object ToJson {
 
   inline given ToJson[Int] {
-      override def toJson(a:Int): String = s"json int of $a"
+      override def toJson(a:Int): String = s"$a"
   }
 
   inline given ToJson[String] {
-      override def toJson(a:String): String = s""""json string of $a""""
+      override def toJson(a:String): String = s""""$a""""
   }
 
   def extractLabelsAsString[T : Type](using q: Quotes):List[Expr[String]] = Type.of[T] match {
