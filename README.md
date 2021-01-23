@@ -1,7 +1,8 @@
 # dotty playground
 
 ## about
-Playground repository to try new features that dotty offers such as macro.
+Playground repository to try new features that dotty offers such as macro, extension and 
+new type class syntax(`summon` and `given`).
 
 ## memo
 ### Macro

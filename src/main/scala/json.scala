@@ -15,7 +15,6 @@ trait ToJson[A] {
 }
 
 object ToJson {
-
   inline given ToJson[Int] {
       override def toJson(a:Int): String = s"$a"
   }
